@@ -83,7 +83,8 @@ RSpec.describe Main do
         expect { subject }.to raise_error Main::MyError
         expect(mock_output.ss).to eq %w[
           コーラを購入しました おつりは400円です
-          お茶を購入しました おつりは400円です]
+          お茶を購入しました おつりは400円です
+          おつりは500円です ]
       end
     end
 
@@ -99,7 +100,8 @@ RSpec.describe Main do
           コーラを購入しました おつりは0円です
           コーラを購入しました おつりは0円です
           コーラを購入しました おつりは0円です
-          コーラを購入しました おつりは0円です ]
+          コーラを購入しました おつりは0円です
+          おつりは100円です ]
       end
     end
 
@@ -115,7 +117,8 @@ RSpec.describe Main do
           お茶を購入しました おつりは0円です
           お茶を購入しました おつりは0円です
           お茶を購入しました おつりは0円です
-          お茶を購入しました おつりは0円です ]
+          お茶を購入しました おつりは0円です
+          おつりは100円です ]
       end
     end
 
@@ -131,7 +134,8 @@ RSpec.describe Main do
           ダイエットコーラを購入しました おつりは0円です
           ダイエットコーラを購入しました おつりは0円です
           ダイエットコーラを購入しました おつりは0円です
-          ダイエットコーラを購入しました おつりは0円です ]
+          ダイエットコーラを購入しました おつりは0円です
+          おつりは100円です ]
       end
     end
 
@@ -142,6 +146,7 @@ RSpec.describe Main do
 
       it 'raise exception' do
         expect { subject }.to raise_error Main::MyError
+        expect(mock_output.ss).to eq  %w[おつりは150円です]
       end
     end
 

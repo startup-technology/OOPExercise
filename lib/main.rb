@@ -24,6 +24,7 @@ module Main
         output.puts 'お茶を購入しました'
         output.puts "おつりは#{charge}円です"
       else
+        output.puts "おつりは#{charge}円です"
         raise MyError, '買えんかった(´ﾟдﾟ｀)'
       end
     end
