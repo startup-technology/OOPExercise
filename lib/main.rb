@@ -13,7 +13,14 @@ module Main
       end
       n, m = str.split(' ')
 
-      drink = vm.buy(n.to_i, self.class.class_eval("Drink::#{m}"))
+      payed_money = n.to_i
+      ordered_drink = Drink.new(m)
+
+      order = Order.new(payed_money, ordered_drink)
+      payed_money = order.payed_money
+      ordered_drink = order.ordered_drink
+
+      drink = vm.buy(payed_money, ordered_drink)
       charge = vm.refund
 
       if drink != nil && drink.is_coke?
