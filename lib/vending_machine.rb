@@ -3,7 +3,6 @@ class VendingMachine
     @quantityOfCoke = 5 # コーラの在庫数
     @quantityOfDietCoke = 5 # ダイエットコーラの在庫数
     @quantityOfTea = 5 # お茶の在庫数
-    @numberOf100Yen = 10 # 100円玉の在庫
     @charge = 0 # お釣り
   end
 
@@ -13,26 +12,35 @@ class VendingMachine
   #                    コーラ({@code Juice.COKE}),ダイエットコーラ({@code Juice.DIET_COKE},お茶({@code Juice.TEA})が指定できる.
   # @return 指定したジュース. 在庫不足や釣り銭不足で買えなかった場合は {@code null} が返される.
   def buy(i, kindOfDrink)
-    # 100円と500円だけ受け付ける
     coin = Coin.new(i)
-    @charge += i && (return nil) if coin.invalid?
+    money_box = MoneyBox.new
+    @charge += 1 && (return nil) if coin.invalid? # 100円と500円だけ受け付ける
 
-    QuantityCheck.no_quantity(@quantityOfCoke, @quantityOfDietCoke, @quantityOfTea)
+    if ((kindOfDrink == Drink::COKE) && (@quantityOfCoke == 0))
+      @charge += coin
+      return nil
+    elsif ((kindOfDrink == Drink::DIET_COKE) && (@quantityOfDietCoke == 0))
+      @charge += coin
+      return nil
+    elsif ((kindOfDrink == Drink::TEA) && (@quantityOfTea == 0))
+      @charge += coin
+      return nil
+    end
 
     # 釣り銭不足
-    if (i == 500 && @numberOf100Yen < 4)
+    if money_box.invalid?
       @charge += i
       return nil
     end
 
-    if (i == 100)
+    if (coin == 100)
       # 100円玉を釣り銭に使える
-      @numberOf100Yen += 1
-    elsif (i == 500)
+      @numberOf100Yen += coin
+    elsif (coin == 500)
       # 400円のお釣り
-      @charge += (i - 100)
+      @charge += (coin - 100)
       # 100円玉を釣り銭に使える
-      @numberOf100Yen -= (i - 100) / 100
+      @numberOf100Yen -= (coin - 100) / 100
     end
 
     if (kindOfDrink == Drink::COKE)
@@ -52,10 +60,6 @@ class VendingMachine
     result = @charge
     @charge = 0
     result
-  end
-
-  def valid?(coin)
-    coin.valid?(coin.coin)
   end
 end
 
