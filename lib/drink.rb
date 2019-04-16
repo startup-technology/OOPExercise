@@ -7,7 +7,19 @@ class Drink
     @kind = kind
   end
 
-  def getKind()
-    return @kind
+  def kind
+    @kind
+  end
+
+  def is_coke?
+    self.kind == COKE
+  end
+
+  def is_diet_coke?
+    self.kind == DIET_COKE
+  end
+
+  def is_tea?
+    self.kind == TEA
   end
 end

@@ -3,11 +3,11 @@ class Coin
     @coin = coin
   end
 
-  def valid?
-    if ((@coin != 100) && (@coin != 500))
-      false
-    else
-      true
-    end
+  def coin
+    @coin
+  end
+
+  def invalid?
+    self.coin != 100 && self.coin != 500
   end
 end

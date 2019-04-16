@@ -14,10 +14,8 @@ class VendingMachine
   # @return 指定したジュース. 在庫不足や釣り銭不足で買えなかった場合は {@code null} が返される.
   def buy(i, kindOfDrink)
     # 100円と500円だけ受け付ける
-    if ((i != 100) && (i != 500))
-      @charge += i
-      return nil
-    end
+    coin = Coin.new(i)
+    @charge += i && (return nil) if coin.invalid?
 
     QuantityCheck.no_quantity(@quantityOfCoke, @quantityOfDietCoke, @quantityOfTea)
 

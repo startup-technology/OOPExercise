@@ -12,21 +12,17 @@ module Main
         next
       end
       n, m = str.split(' ')
-      coin = Coin.new(n.to_i)
-
-      raise MyError, '買えんかった(´ﾟдﾟ｀)' unless vm.valid?(coin)
-
 
       drink = vm.buy(n.to_i, self.class.class_eval("Drink::#{m}"))
       charge = vm.refund
 
-      if drink != nil && drink.getKind == Drink::COKE
+      if drink != nil && drink.is_coke?
         output.puts 'コーラを購入しました'
         output.puts "おつりは#{charge}円です"
-      elsif drink != nil && drink.getKind == Drink::DIET_COKE
+      elsif drink != nil && drink.is_diet_coke?
         output.puts 'ダイエットコーラを購入しました'
         output.puts "おつりは#{charge}円です"
-      elsif drink != nil && drink.getKind == Drink::TEA
+      elsif drink != nil && drink.is_tea?
         output.puts 'お茶を購入しました'
         output.puts "おつりは#{charge}円です"
       else
