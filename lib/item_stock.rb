@@ -5,9 +5,13 @@ class ItemStock
 
   def initialize(kindOfDrink)
     @kindOfDrink = kindOfDrink
-    quantityOfCoke = QUANTITY_OF_COKE
-    quantityOfDietCoke = QUANTITY_OF_DIET_COKE
-    quantityOfTea = QUANTITY_OF_TEA
+    @quantity_of_item = if kindOfDrink == Drink::COKE
+                        QUANTITY_OF_COKE
+                      elsif kindOfDrink == Drink::DIET_COKE
+                        QUANTITY_OF_DIET_COKE
+                      elsif kindOfDrink == Drink::TEA
+                        QUANTITY_OF_TEA
+                      end
   end
   
   def kindOfDrink
@@ -26,11 +30,11 @@ class ItemStock
 
   def calculate
     if kindOfDrink == Drink::COKE
-      quantityOfCoke -= 1
+      @quantity_of_item -= 1
     elsif kindOfDrink == Drink::DIET_COKE
-      quantityOfDietCoke -= 1
+      @quantity_of_item -= 1
     elsif kindOfDrink == Drink::TEA
-      quantityOfTea -= 1
+      @quantity_of_item -= 1
     end
   end
 end
