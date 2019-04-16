@@ -38,14 +38,7 @@ class VendingMachine
       @numberOf100Yen -= (insertMoney - 100) / 100
     end
 
-    itemStock.calculate(quantity)
-    if (kindOfDrink == Drink::COKE)
-      @quantityOfCoke -= 1
-    elsif (kindOfDrink == Drink::DIET_COKE)
-      @quantityOfDietCoke -= 1
-    else
-      @quantityOfTea -= 1
-    end
+    itemStock.calculate
 
     return Drink.new(kindOfDrink)
   end
