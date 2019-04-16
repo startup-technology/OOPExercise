@@ -19,16 +19,7 @@ class VendingMachine
       return nil
     end
 
-    if ((kindOfDrink == Drink::COKE) && (@quantityOfCoke == 0))
-      @charge += i
-      return nil
-    elsif ((kindOfDrink == Drink::DIET_COKE) && (@quantityOfDietCoke == 0))
-      @charge += i
-      return nil
-    elsif ((kindOfDrink == Drink::TEA) && (@quantityOfTea == 0))
-      @charge += i
-      return nil
-    end
+    QuantityCheck.no_quantity(@quantityOfCoke, @quantityOfDietCoke, @quantityOfTea)
 
     # 釣り銭不足
     if (i == 500 && @numberOf100Yen < 4)
@@ -65,3 +56,6 @@ class VendingMachine
     result
   end
 end
+
+
+
