@@ -55,6 +55,10 @@ class VendingMachine
     @charge = 0
     result
   end
+
+  def valid?(coin)
+    coin.valid?(coin.coin)
+  end
 end
 
 

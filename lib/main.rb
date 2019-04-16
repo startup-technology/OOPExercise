@@ -1,5 +1,6 @@
 require './lib/drink'
 require './lib/vending_machine'
+require './lib/coin'
 
 module Main
   class MyError < StandardError; end
@@ -11,6 +12,11 @@ module Main
         next
       end
       n, m = str.split(' ')
+      coin = Coin.new(n.to_i)
+
+      raise MyError, '買えんかった(´ﾟдﾟ｀)' unless vm.valid?(coin)
+
+
       drink = vm.buy(n.to_i, self.class.class_eval("Drink::#{m}"))
       charge = vm.refund
 
