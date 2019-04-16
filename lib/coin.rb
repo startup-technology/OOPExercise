@@ -7,7 +7,15 @@ class Coin
     @coin
   end
 
+  def is_500Yen?
+    @coin == 500
+  end
+
+  def is_100Yen?
+    @coin == 100
+  end
+
   def invalid?
-    self.coin != 100 && self.coin != 500
+    !is_500Yen? && !is_100Yen?
   end
 end
