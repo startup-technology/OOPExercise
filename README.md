@@ -35,7 +35,7 @@ $ bundle install --path vendor/bundle
 ### Run
 
 ```sh
-$ bundle exec lib/main.rb
+$ bundle exec ruby lib/main.rb
 ```
 
 #### example input
