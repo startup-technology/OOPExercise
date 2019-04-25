@@ -8,42 +8,42 @@ class VendingMachine
   end
 
   #  ジュースを購入する.
-  # @param i           投入金額. 100円と500円のみ受け付ける.
+  # @param insert_money           投入金額. 100円と500円のみ受け付ける.
   # @param kindOfDrink ジュースの種類.
   #                    コーラ({@code Juice.COKE}),ダイエットコーラ({@code Juice.DIET_COKE},お茶({@code Juice.TEA})が指定できる.
   # @return 指定したジュース. 在庫不足や釣り銭不足で買えなかった場合は {@code null} が返される.
-  def buy(i, kindOfDrink)
+  def buy(insert_money, kindOfDrink)
     # 100円と500円だけ受け付ける
-    if ((i != 100) && (i != 500))
-      @charge += i
+    if !insert_money.valid?
+      @charge += insert_money
       return nil
     end
 
     if ((kindOfDrink == Drink::COKE) && (@quantityOfCoke == 0))
-      @charge += i
+      @charge += insert_money
       return nil
     elsif ((kindOfDrink == Drink::DIET_COKE) && (@quantityOfDietCoke == 0))
-      @charge += i
+      @charge += insert_money
       return nil
     elsif ((kindOfDrink == Drink::TEA) && (@quantityOfTea == 0))
-      @charge += i
+      @charge += insert_money
       return nil
     end
 
     # 釣り銭不足
-    if (i == 500 && @numberOf100Yen < 4)
-      @charge += i
+    if (insert_money == 500 && @numberOf100Yen < 4)
+      @charge += insert_money
       return nil
     end
 
-    if (i == 100)
+    if (insert_money == 100)
       # 100円玉を釣り銭に使える
       @numberOf100Yen += 1
-    elsif (i == 500)
+    elsif (insert_money == 500)
       # 400円のお釣り
-      @charge += (i - 100)
+      @charge += (insert_money - 100)
       # 100円玉を釣り銭に使える
-      @numberOf100Yen -= (i - 100) / 100
+      @numberOf100Yen -= (insert_money - 100) / 100
     end
 
     if (kindOfDrink == Drink::COKE)

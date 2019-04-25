@@ -1,5 +1,6 @@
 require './lib/drink'
 require './lib/vending_machine'
+require './lib/coin'
 
 module Main
   class MyError < StandardError; end
@@ -11,7 +12,8 @@ module Main
         next
       end
       n, m = str.split(' ')
-      drink = vm.buy(n.to_i, self.class.class_eval("Drink::#{m}"))
+
+      drink = vm.buy(Coin.new(n.to_i), self.class.class_eval("Drink::#{m}"))
       charge = vm.refund
 
       if drink != nil && drink.getKind == Drink::COKE
