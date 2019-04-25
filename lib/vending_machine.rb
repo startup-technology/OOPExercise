@@ -43,7 +43,10 @@ class VendingMachine
       @numberOf100Yen += 1
     elsif insert_coin.is_500yen?
       # 400円のお釣り
-      @charges.push(insert_coin.money - 100)
+      @charges.push(Coin.new(100))
+      @charges.push(Coin.new(100))
+      @charges.push(Coin.new(100))
+      @charges.push(Coin.new(100))
       # 100円玉を釣り銭に使える
       @numberOf100Yen -= (insert_coin.money - 100) / 100
     end

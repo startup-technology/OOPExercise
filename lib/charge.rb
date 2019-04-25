@@ -8,9 +8,9 @@ class Charge
   end
   
   def total_charge
-    @charges.sum
+    @charges.sum(&:money)
   end
-  
+
   def reset_charges
     @charges = []
   end
