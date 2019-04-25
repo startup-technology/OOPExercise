@@ -1,10 +1,13 @@
 require './lib/charge'
+require './lib/Stock'
 
 class VendingMachine
   def initialize
-    @quantityOfCoke = 5 # コーラの在庫数
-    @quantityOfDietCoke = 5 # ダイエットコーラの在庫数
-    @quantityOfTea = 5 # お茶の在庫数
+    @quantity_of_drinks = {
+        coke: Stock.new('COKE', 5),
+        diet_coke: Stock.new('DIET_COKE', 5),
+        tea: Stock.new('TEA', 5)
+    }
     @numberOf100Yen = 10 # 100円玉の在庫
     @charges= Charge.new # お釣り
   end
@@ -21,13 +24,13 @@ class VendingMachine
       return nil
     end
 
-    if ((kindOfDrink == Drink::COKE) && (@quantityOfCoke == 0))
+    if (kindOfDrink == Drink::COKE) && @quantity_of_drinks[:coke].empty?
       @charges.push(insert_coin)
       return nil
-    elsif ((kindOfDrink == Drink::DIET_COKE) && (@quantityOfDietCoke == 0))
+    elsif (kindOfDrink == Drink::DIET_COKE) && @quantity_of_drinks[:diet_coke].empty?
       @charges.push(insert_coin)
       return nil
-    elsif ((kindOfDrink == Drink::TEA) && (@quantityOfTea == 0))
+    elsif (kindOfDrink == Drink::TEA) && @quantity_of_drinks[:tea].empty?
       @charges.push(insert_coin)
       return nil
     end
@@ -52,11 +55,11 @@ class VendingMachine
     end
 
     if (kindOfDrink == Drink::COKE)
-      @quantityOfCoke -= 1
+      @quantity_of_drinks[:coke].decrease(1)
     elsif (kindOfDrink == Drink::DIET_COKE)
-      @quantityOfDietCoke -= 1
+      @quantity_of_drinks[:diet_coke].decrease(1)
     else
-      @quantityOfTea -= 1
+      @quantity_of_drinks[:tea].decrease(1)
     end
 
     return Drink.new(kindOfDrink)
