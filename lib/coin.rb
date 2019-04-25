@@ -2,6 +2,10 @@ class Coin
   def initialize(insert_money)
     @money = insert_money
   end
+  
+  def money
+    @money
+  end
 
   def valid?
    is_100yen? || is_500yen?
